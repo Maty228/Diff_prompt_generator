@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- jsDelivr CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/diff@8.0.2/dist/diff.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.36.0/src-min-noconflict/ace.js"></script>
+    <script src="index.js"></script>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+
+<body>
+
+<div id="page">
+
+<div id="controls">
+    <div id="language">
+        <button onclick="setLanguage('csharp')" id="csharp" class="btn">C#</button>
+        <button onclick="setLanguage('java')" id="java" class="btn">Java</button>
+        <button onclick="setLanguage('kotlin')" id="kotlin" class="btn">Kotlin</button>
+    </div>
+    <div class="uploadFile">
+        <button onclick="pickFile()" class="btn btn--primary">Load file</button>
+        <input id="fileInput"  type="file" accept=".cs,.java,.kt,.txt,.md,.json,*/*" style="display:none">
+    </div>
+
+
+    <div id="context">
+        <input id="filePath" placeholder="src/Calculator.cs" />
+        <textarea id="editorconfig" placeholder=".editorconfig (optional)"></textarea>
+        <input id="perfHints" placeholder="Hot path, large collection, real-time loop... (optional)" />
+        <input id="commitMsg" placeholder="Commit message (optional)" />
+    </div>
+
+
+    <button id="themeToggle" class="btn">Theme</button>
+
+
+</div>
+
+
+
+<div id="container">
+    <div class="editor-shell">
+        <div id="editor" class="editor"></div>
+    </div>
+
+    <div id="resultControls">
+        <button id="submit" onclick="submit()" class="btn btn--primary">Submit</button>
+    </div>
+
+    <section id="promptCard" class="prompt-card">
+        <div class="prompt-card__header">
+            <h3 class="prompt-card__title">LLM Prompt</h3>
+            <div class="prompt-card__tools">
+                <label class="wrap-toggle">
+                    <input id="wrapToggle" type="checkbox" checked />
+                    Wrap lines
+                </label>
+                <button id="copyPrompt" onclick="navigator.clipboard.writeText(document.getElementById('diffResult').innerText)" class="btn btn--secondary">Copy</button>
+                <button id="downloadPrompt" class="btn btn--secondary">Download</button>
+            </div>
+        </div>
+
+        <pre id="promptOutput" class="prompt-card__pre" aria-label="Generated LLM prompt"></pre>
+    </section>
+
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+:root {
+    --orange: #ff801a;
+    --red-orange: #ff513c;
+    --red: #fd384c;
+    --hot-pink: #ff1461;
+    --darker-pink: #ff1461;
+    --magenta: #d92672;
+    --dark-magenta: #b62f81;
+    --purple: #923890;
+    --darker-purple: #753aa6;
+    --dark-purple: #4f3282;
+    --blue:   #2d6bff;
+    --cyan:   #00c2ff;
+
+    /* Light */
+    --bg: #f3f5f7;
+    --surface: #ffffff;
+    --muted: #f7f8fa;
+    --border: #e4e7eb;
+    --border-strong: #cfd6df;
+    --text: #121417;
+    --text-muted: #5b6470;
+
+    --control-bg: #fafbfc;
+    --control-border: #cfd6df;
+    --control-focus: #2d6bff33;
+    --button-bg: #eef2f7;
+    --button-border: #d7dee8;
+
+    /* Editor shell */
+    --editor-height: 520px;
+    --editor-width-p: 80%;
+    --editor-radius: 12px;
+    --ring-w: 1px;     /* gradient ring thickness */
+    --glow-blur: 18px; /* glow softness */
+    --glow-alpha: 0.15;
+
+    --accent: #4a8cff;
+    --btn-bg: #eef2f7;
+    --btn-text: #1b1f23;
+    --btn-border: #cfd6df;
+    --btn-hover-bg: #e3e9f1;
+    --btn-hover-border: #b9c5d6;
+
+    --btnp-bg: var(--accent);
+    --btnp-text: #ffffff;
+    --btnp-border: #2052cc;
+    --btnp-hover-bg: #2359dd;
+    --btnp-hover-border: #1d49b6;
+
+}
+
+/* Dark */
+:root[data-theme="dark"] {
+    --bg: #0f1115;
+    --surface: #141820;
+    --muted: #1a2030;
+    --border: #232834;
+    --border-strong: #2b3140;
+    --text: #e6edf3;
+    --text-muted: #aab3bf;
+
+    --control-bg: #1b2130;
+    --control-border: #334056;
+    --control-focus: #00c2ff33;
+    --button-bg: #212a3a;
+    --button-border: #334056;
+
+    --accent: #2d6bff;
+
+
+    --btn-bg: #2a3346;
+    --btn-text: #e6edf3;
+    --btn-border: #3b465e;
+    --btn-hover-bg: #33405a;
+    --btn-hover-border: #4a5672;
+
+    --btnp-bg: #3a74ff;
+    --btnp-text: #ffffff;
+    --btnp-border: #2d60d4;
+    --btnp-hover-bg: #3369ee;
+    --btnp-hover-border: #2856c0;
+}
+
+/* Responsive editor height*/
+@media (max-width: 1100px) { :root { --editor-height: 460px; } }
+@media (max-width: 800px)  { :root { --editor-height: 400px; } #container { flex-direction: column; } }
+
+/* Base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+
+#controls {
+    background: var(--surface);
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 15px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ---- CONTEXT INPUTS ---- */
+#context {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex: 1;
+}
+
+#context input, #context textarea {
+    background: var(--surface); color: var(--text);
+    flex: 1;
+    min-width: 150px;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid var(--control-border);
+    border-radius: 6px;
+}
+#context input::placeholder, #context textarea::placeholder { color: var(--text-muted); }
+#context input:focus, #context textarea:focus { box-shadow: 0 0 0 3px var(--control-focus); }
+
+/* Prevent textarea being huge */
+#context textarea {
+    min-height: 38px;
+    max-height: 80px;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    line-height:38px;
+}
+::-webkit-input-placeholder { /* Webkit */
+    line-height:38px;
+}
+:-ms-input-placeholder { /* IE */
+    line-height:38px;
+}
+
+#language {
+    display: flex;
+    gap: 8px;
+}
+
+/* Base button */
+.btn {
+    padding: 8px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.btn:hover { background: var(--btn-hover-bg); border-color: var(--btn-hover-border); }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--control-focus); }
+
+/* Primary (Submit) */
+.btn--primary {
+    background: var(--btnp-bg);
+    color: var(--btnp-text);
+    border-color: var(--btnp-border);
+}
+.btn--primary:hover { background: var(--btnp-hover-bg); border-color: var(--btnp-hover-border); }
+
+/* Secondary (Copy prompt, Load file) */
+.btn--secondary { /* just the base .btn look; keep for clarity */ }
+
+
+#language .btn, .uploadFile .btn, #submit, button[onclick*="clipboard"] {
+     border: 1px solid var(--button-border); color: var(--text);
+}
+
+/* Selected language pill with brand hint */
+#language button.selected {
+    background: color-mix(in oklab, var(--cyan) 18%, var(--surface));
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--control-focus);
+}
+
+/* Editors container spacing */
+#container {
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+    width: var(--editor-width-p);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+/* === Gradient “glow border” around each editor ===
+   Wrap your .editor in .editor-shell (HTML below) */
+.editor-shell {
+
+    position: relative;
+    flex: 1;
+    padding: var(--ring-w); /* ring thickness */
+    border-radius: calc(var(--editor-radius) + var(--ring-w));
+    /* Conic gradient follows the perimeter */
+    --ring-angle: 0deg;
+    background: conic-gradient(
+            from var(--ring-angle),
+            var(--orange),
+            var(--red-orange),
+            var(--red),
+            var(--hot-pink),
+            var(--darker-pink),
+            var(--magenta),
+            var(--dark-magenta),
+            var(--purple),
+            var(--darker-purple),
+            var(--dark-purple),
+            var(--darker-purple),
+            var(--purple),
+            var(--dark-magenta),
+            var(--magenta),
+            var(--darker-pink),
+            var(--hot-pink),
+            var(--red),
+            var(--red-orange),
+            var(--orange)
+    );
+    animation: ringHue 90s linear infinite;
+}
+
+/* Soft glow behind the ring */
+.editor-shell::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    background: inherit;
+    filter: blur(var(--glow-blur));
+    opacity: var(--glow-alpha);
+    z-index: 0;
+}
+
+/* The actual Ace editor pane */
+.editor {
+    position: relative;
+    z-index: 1; /* above glow */
+    height: var(--editor-height);
+    border-radius: var(--editor-radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+}
+
+@property --ring-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes ringHue {   to { --ring-angle: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .editor-shell { animation: none !important; }
+}
+
+
+/* --- Prompt card --- */
+.prompt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(16, 24, 40, 0.04);
+    padding: 12px 12px 16px;
+    margin: 16px auto;
+    width: min(980px, var(--editor-width-p));
+}
+
+.prompt-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.prompt-card__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.prompt-card__tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wrap-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* The preformatted prompt body */
+.prompt-card__pre {
+    margin: 0;
+    padding: 12px 14px;
+    background: var(--muted);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    white-space: pre-wrap;         /* toggled by JS when wrap is off */
+    overflow: auto;
+    max-height: 55vh;
+}
+
+/* A subtle left accent to hint “code-like” */
+.prompt-card__pre {
+    border-left: 4px solid var(--accent);
+}
+
+/* Dark-mode tiny tweak: slightly stronger shadow */
+:root[data-theme="dark"] .prompt-card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
